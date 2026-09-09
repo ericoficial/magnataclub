@@ -186,6 +186,27 @@ button{font:inherit}
 .hero-scrim-1{position:absolute;inset:0;background:var(--gradient-protect-left)}
 .hero-scrim-2{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 30%,rgba(0,0,0,.9) 100%)}
 .hero-content{position:relative;z-index:2;max-width:820px;display:grid;gap:26px}
+
+/* Emblema de fundo (brasão + fumaça dourada) atrás do texto do Hero.
+   mix-blend-mode:screen some com o fundo preto do próprio hero (sem
+   deixar um retângulo visível) e a opacidade mantém o texto legível. */
+.hero-emblem{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  height:112%;
+  width:auto;
+  max-width:none;
+  opacity:.4;
+  mix-blend-mode:screen;
+  z-index:1;
+  pointer-events:none;
+  user-select:none;
+}
+@media (max-width:860px){
+  .hero-emblem{height:auto;width:150%;opacity:.32}
+}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border:1px solid var(--border-color-gold);
   background:var(--alpha-gold-08);border-radius:var(--radius-pill);color:var(--color-gold-light);
   font-size:12px;font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;justify-self:start}
