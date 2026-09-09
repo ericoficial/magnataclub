@@ -1,0 +1,106 @@
+/* =========================================================
+   HERO CHARACTER — componente independente
+   Figura 3D estilizada (gema/cristal facetado dourado) com a
+   "cabeça aberta" para o Hero da Magnata Club.
+
+   Usa somente os tokens de cor/sombra/motion já definidos em
+   css/style.css (nenhuma cor nova é introduzida). Pode ser
+   removido inteiramente apagando este arquivo, o <link> no
+   <head>, o bloco <div class="hero-character"> no index.html e
+   o <script> do hero-character.js — nada mais no site depende
+   dele.
+   ========================================================= */
+
+/* Posicionado no espaço aberto à direita do bloco de texto (que é
+   alinhado à esquerda e ocupa boa parte da largura do Hero) — assim
+   fica visualmente centralizado na composição, integrado ao espaço
+   já existente, sem cobrir textos ou botões. Reajustável via estas
+   poucas propriedades (right/width/opacity). */
+.hero-character{
+  position:absolute;
+  right:clamp(0px,4vw,64px);
+  top:50%;
+  width:min(24vw,300px);
+  aspect-ratio:340/420;
+  opacity:.85;
+  transform:translateY(-50%);
+  z-index:1; /* acima do fundo/scrims do hero, abaixo do texto (.hero-content tem z-index:2) */
+  pointer-events:none;
+  animation:hc-float 7.5s var(--ease-luxury) infinite alternate;
+  will-change:transform;
+}
+
+.hero-character__parallax{
+  width:100%;
+  height:100%;
+  /* transform inline via JS (parallax discreto); sem JS, permanece 0,0 */
+}
+
+.hero-character__figure{
+  width:100%;
+  height:100%;
+  animation:hc-tilt 13s var(--ease-luxury) infinite alternate;
+  transform-origin:50% 62%;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.55));
+}
+
+.hero-character svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* núcleo luminoso dentro da cabeça aberta */
+.hc-core{animation:hc-pulse 4.5s ease-in-out infinite}
+.hc-ray{animation:hc-pulse 4.5s ease-in-out infinite;animation-delay:.4s}
+
+/* partículas flutuantes */
+.hc-particle{animation:hc-drift 9s ease-in-out infinite}
+.hc-particle:nth-child(2){animation-duration:11s;animation-delay:.8s}
+.hc-particle:nth-child(3){animation-duration:8s;animation-delay:1.6s}
+.hc-particle:nth-child(4){animation-duration:12.5s;animation-delay:.3s}
+.hc-particle:nth-child(5){animation-duration:10s;animation-delay:2.1s}
+
+@keyframes hc-float{
+  from{transform:translateY(calc(-50% - 8px))}
+  to{transform:translateY(calc(-50% + 8px))}
+}
+@keyframes hc-tilt{
+  0%{transform:rotate(-1.4deg) scale(1)}
+  50%{transform:rotate(0deg) scale(1.008)}
+  100%{transform:rotate(1.4deg) scale(1)}
+}
+@keyframes hc-pulse{
+  0%,100%{opacity:.75;transform:scale(.97)}
+  50%{opacity:1;transform:scale(1.04)}
+}
+@keyframes hc-drift{
+  0%,100%{transform:translate3d(0,0,0);opacity:.35}
+  50%{transform:translate3d(6px,-14px,0);opacity:.85}
+}
+
+/* Responsivo: menor, mais discreto e mais recuado no hero em telas estreitas */
+@media (max-width:860px){
+  .hero-character{
+    left:50%;
+    right:auto;
+    width:min(64vw,320px);
+    top:auto;
+    bottom:-4%;
+    transform:translateX(-50%);
+    opacity:.4;
+  }
+  @keyframes hc-float{
+    from{transform:translateX(-50%) translateY(-6px)}
+    to{transform:translateX(-50%) translateY(6px)}
+  }
+}
+
+@media (max-width:520px){
+  .hero-character{width:min(78vw,280px);opacity:.3}
+}
+
+/* Movimento reduzido: mantém a figura visível, congela toda a animação */
+@media (prefers-reduced-motion:reduce){
+  .hero-character,
+  .hero-character__figure,
+  .hc-core,
+  .hc-ray,
+  .hc-particle{animation:none !important}
+}

@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="assets/img/logo-crest.png">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="components/hero-character/hero-character.css">
 </head>
 <body>
 
@@ -62,6 +63,100 @@
   <div class="hero-bg"></div>
   <div class="hero-scrim-1"></div>
   <div class="hero-scrim-2"></div>
+
+  <!-- HERO CHARACTER — componente independente, ver components/hero-character/ -->
+  <div class="hero-character" data-hero-character aria-hidden="true">
+    <div class="hero-character__parallax">
+      <div class="hero-character__figure">
+        <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hcBody" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F3CC83"/>
+              <stop offset="45%" stop-color="#C9944A"/>
+              <stop offset="100%" stop-color="#8C5C29"/>
+            </linearGradient>
+            <radialGradient id="hcGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F8D99A" stop-opacity=".95"/>
+              <stop offset="55%" stop-color="#E7B86A" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#E7B86A" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hcRay" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#F8D99A" stop-opacity=".8"/>
+              <stop offset="100%" stop-color="#F8D99A" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="hcGround" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#C9944A" stop-opacity=".28"/>
+              <stop offset="100%" stop-color="#C9944A" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="hcBlur" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="6"/>
+            </filter>
+            <linearGradient id="hcFade" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+              <stop offset="82%" stop-color="#fff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="hcFadeMask">
+              <rect x="0" y="0" width="340" height="420" fill="url(#hcFade)"/>
+            </mask>
+          </defs>
+
+          <!-- brilho de contato no chão -->
+          <ellipse class="hc-core" cx="170" cy="404" rx="92" ry="16" fill="url(#hcGround)"/>
+
+          <g mask="url(#hcFadeMask)">
+            <!-- busto facetado (ombros + pescoço + cabeça), com abertura irregular no topo -->
+            <path fill="url(#hcBody)" stroke="rgba(201,148,74,.45)" stroke-width="1.5" stroke-linejoin="round" d="
+              M138,96
+              L150,118 L162,100 L172,122 L184,100 L196,118
+              L208,96
+              L232,138 L238,185 L214,224
+              L200,255 L300,340 L322,420
+              L18,420 L40,340 L140,255
+              L132,224 L108,185 L114,138
+              Z"/>
+
+            <!-- facetas de luz (lado superior/direito) -->
+            <g fill="#F8D99A" opacity=".22" style="mix-blend-mode:soft-light">
+              <polygon points="208,96 232,138 190,150"/>
+              <polygon points="232,138 238,185 202,172"/>
+              <polygon points="300,340 322,420 250,392"/>
+            </g>
+
+            <!-- facetas de sombra (lado inferior/esquerdo) -->
+            <g fill="#000" opacity=".22" style="mix-blend-mode:multiply">
+              <polygon points="108,185 132,224 150,192"/>
+              <polygon points="132,224 173,240 150,214"/>
+              <polygon points="40,340 18,420 92,384"/>
+            </g>
+          </g>
+
+          <!-- cabeça aberta: núcleo luminoso + raios internos -->
+          <g class="hc-ray">
+            <polygon points="168,118 172,52 176,118" fill="url(#hcRay)"/>
+            <polygon points="154,120 148,70 162,116" fill="url(#hcRay)" opacity=".7"/>
+            <polygon points="186,120 192,70 178,116" fill="url(#hcRay)" opacity=".7"/>
+          </g>
+          <circle class="hc-core" cx="172" cy="110" r="30" fill="url(#hcGlow)" filter="url(#hcBlur)"/>
+          <g class="hc-core" fill="#F8D99A">
+            <rect x="164" y="98" width="7" height="7" transform="rotate(45 167.5 101.5)"/>
+            <rect x="176" y="106" width="5" height="5" transform="rotate(45 178.5 108.5)"/>
+            <rect x="158" y="108" width="4" height="4" transform="rotate(45 160 110)"/>
+          </g>
+
+          <!-- partículas flutuantes -->
+          <g fill="#F3CC83">
+            <circle class="hc-particle" cx="86" cy="150" r="3"/>
+            <circle class="hc-particle" cx="256" cy="168" r="2.5"/>
+            <circle class="hc-particle" cx="198" cy="54" r="2"/>
+            <circle class="hc-particle" cx="118" cy="300" r="2.8"/>
+            <circle class="hc-particle" cx="268" cy="322" r="2.3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div class="hero-content reveal">
       <span class="hero-badge">Inauguração · Sábado, 12 de setembro · 23h</span>
@@ -535,6 +630,7 @@
   <span>WhatsApp</span>
 </a>
 
+<script src="components/hero-character/hero-character.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
